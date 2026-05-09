@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barber &amp; Tattoo Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --gold:        #d4af37;
+      --gold-light:  #e8cc6a;
+      --gold-dark:   #a8891f;
+      --black:       #080808;
+      --glass:       rgba(255, 255, 255, 0.04);
+      --glass-b:     rgba(212, 175, 55, 0.2);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: #fff;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+      padding: 2rem 1.5rem;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 18% 50%, rgba(212,175,55,.08) 0%, transparent 55%),
+        radial-gradient(ellipse at 82% 50%, rgba(212,175,55,.06) 0%, transparent 55%),
+        url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1600&q=80') center / cover no-repeat;
+      filter: brightness(.13);
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      width: 100%;
+      max-width: 1080px;
+      animation: fadeUp .9s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid var(--glass-b);
+      color: var(--gold);
+      font-size: .7rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      padding: .4rem 1.2rem;
+      border-radius: 99px;
+      margin-bottom: 2rem;
+      background: var(--glass);
+      backdrop-filter: blur(8px);
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff 40%, var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .divider {
+      width: 56px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 0 auto 1.8rem;
+    }
+
+    .subtitle {
+      font-size: clamp(.88rem, 2vw, 1rem);
+      color: rgba(255,255,255,.52);
+      max-width: 500px;
+      margin: 0 auto 3.5rem;
+      line-height: 1.74;
+      font-weight: 300;
+    }
+
+    .cards {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      width: 320px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--glass-b);
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition:
+        transform .38s cubic-bezier(.22,.68,0,1.2),
+        box-shadow .35s ease,
+        border-color .35s ease;
+      animation: fadeUp .9s ease both;
+    }
+
+    .card:nth-child(1) { animation-delay: .15s; }
+    .card:nth-child(2) { animation-delay: .3s;  }
+
+    .card:hover {
+      transform: translateY(-9px) scale(1.02);
+      box-shadow: 0 28px 60px rgba(212,175,55,.18), 0 0 0 1px rgba(212,175,55,.4);
+      border-color: rgba(212,175,55,.5);
+    }
+
+    .card-img-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,.88) 0%, transparent 60%);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(.68) saturate(.75);
+      transition: transform .5s ease, filter .4s ease;
+    }
+
+    .card:hover .card-img {
+      transform: scale(1.07);
+      filter: brightness(.5) saturate(.65);
+    }
+
+    .card-body { padding: 1.8rem; }
+
+    .card-label {
+      font-size: .67rem;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .55rem;
+      display: block;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: .7rem;
+    }
+
+    .card-text {
+      font-size: .86rem;
+      color: rgba(255,255,255,.52);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: .72rem 2rem;
+      border-radius: 99px;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      transition: all .28s ease;
+      box-shadow: 0 4px 18px rgba(212,175,55,.28);
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      box-shadow: 0 6px 26px rgba(212,175,55,.5);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 700px) {
+      .cards { flex-direction: column; align-items: center; }
+      .card  { width: 100%; max-width: 360px; }
+    }
+  </style>
+
+  <!-- Vercel Web Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <div class="bg"></div>
+
+  <div class="content">
+    <div class="badge">Praha 4 &bull; Nusle</div>
+    <h1>Vyber si svůj styl</h1>
+    <div class="divider"></div>
+    <p class="subtitle">Jedna adresa, dva světy. Precizní barber služby a originální tetování v moderním vizuálním stylu.</p>
+
+    <div class="cards">
+
+      <a class="card" href="barber.html">
+        <div class="card-img-wrap">
+          <img class="card-img"
+               src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=700&q=80"
+               alt="Barber" />
+        </div>
+        <div class="card-body">
+          <span class="card-label">Láčes Barber</span>
+          <div class="card-title">Barber</div>
+          <p class="card-text">Moderní střihy, precizní kontury, úprava vousů a pohodová atmosféra.</p>
+          <span class="btn">Vstoupit</span>
+        </div>
+      </a>
+
+      <a class="card" href="tattoo.html">
+        <div class="card-img-wrap">
+          <img class="card-img"
+               src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=700&q=80"
+               alt="Tetování" />
+        </div>
+        <div class="card-body">
+          <span class="card-label">Tattoo Studio</span>
+          <div class="card-title">Tetování</div>
+          <p class="card-text">Originální návrhy, osobní konzultace a tetování podle tvého stylu.</p>
+          <span class="btn">Vstoupit</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</body>
+</html>
